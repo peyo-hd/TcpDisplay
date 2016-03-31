@@ -49,7 +49,6 @@ public class DisplaySinkService extends Service implements SurfaceHolder.Callbac
     private int mSurfaceWidth;
     private int mSurfaceHeight;
     private MediaCodec mCodec;
-    private ByteBuffer[] mCodecInputBuffers;
     private BufferInfo mCodecBufferInfo;
 
     public DisplaySinkService(Context context, Transport transport, int densityDpi) {
@@ -144,7 +143,6 @@ public class DisplaySinkService extends Service implements SurfaceHolder.Callbac
             if (mCodec != null) {
                 mCodec.stop();
                 mCodec = null;
-                mCodecInputBuffers = null;
                 mCodecBufferInfo = null;
             }
 
@@ -192,14 +190,12 @@ public class DisplaySinkService extends Service implements SurfaceHolder.Callbac
     }
 
     private boolean provideCodecInputLocked(ByteBuffer content) {
-        final int index = mCodec.dequeueInputBuffer(0);
+        final int index = mCodec.dequeueInputBuffer(40000);
         if (index < 0) {
             return false;
         }
-        if (mCodecInputBuffers == null) {
-            mCodecInputBuffers = mCodec.getInputBuffers();
-        }
-        final ByteBuffer buffer = mCodecInputBuffers[index];
+
+        final ByteBuffer buffer = mCodec.getInputBuffer(index);
         final int capacity = buffer.capacity();
         buffer.clear();
         if (content.remaining() <= capacity) {
@@ -217,11 +213,10 @@ public class DisplaySinkService extends Service implements SurfaceHolder.Callbac
 
     private void consumeCodecOutputLocked() {
         for (;;) {
-            final int index = mCodec.dequeueOutputBuffer(mCodecBufferInfo, 0);
+            final int index = mCodec.dequeueOutputBuffer(mCodecBufferInfo, 40000);
             if (index >= 0) {
                 mCodec.releaseOutputBuffer(index, true /*render*/);
-            } else if (index != MediaCodec.INFO_OUTPUT_BUFFERS_CHANGED
-                    && index != MediaCodec.INFO_OUTPUT_FORMAT_CHANGED) {
+            } else if (index != MediaCodec.INFO_OUTPUT_FORMAT_CHANGED) {
                 break;
             }
         }

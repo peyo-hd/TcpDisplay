@@ -15,5 +15,5 @@
 -->
 
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_name">Accessory Display Sink</string>
+    <string name="app_name">Display Sink</string>
 </resources>
