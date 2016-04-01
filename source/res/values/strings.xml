@@ -15,5 +15,7 @@
 -->
 
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_name">Accessory Display Source</string>
+    <string name="app_name">Display Source</string>
+    <string name="button_connect">Connect</string>
+    <string name="button_disconnect">Disconnect</string>
 </resources>

@@ -47,6 +47,9 @@ public class CubeRenderer implements GLSurfaceView.Renderer {
          * the screen. The most efficient way of doing this is to use
          * glClear().
          */
+        try {
+            Thread.sleep(35);
+        } catch (InterruptedException e) {}
 
         gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
 
