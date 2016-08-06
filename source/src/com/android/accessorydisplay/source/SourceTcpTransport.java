@@ -18,7 +18,7 @@ public class SourceTcpTransport extends Transport {
     private Object lock;
 
     public SourceTcpTransport(Logger logger, Socket socket) {
-        super(logger, 16384);
+        super(logger, 256 * 1024);
         try {
 			mInputStream = socket.getInputStream();
 	        mOutputStream = socket.getOutputStream();

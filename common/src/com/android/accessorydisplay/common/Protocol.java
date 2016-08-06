@@ -28,7 +28,7 @@ public class Protocol {
     static final int HEADER_SIZE = 8;
 
     // Maximum size of a message envelope including the header and contents.
-    static final int MAX_ENVELOPE_SIZE = 128 * 1024;
+    static final int MAX_ENVELOPE_SIZE = 256 * 1024;
 
     /**
      * Maximum message content size.

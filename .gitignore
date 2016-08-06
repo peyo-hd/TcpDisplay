@@ -1,0 +1,8 @@
+local.properties
+build/
+gradle/
+gradlew
+gradlew.bat
+*.iml
+.*
+!.gitignore

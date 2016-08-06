@@ -18,7 +18,7 @@ public class SinkTcpTransport extends Transport {
 	private Object lock;
 
     public SinkTcpTransport(Logger logger, Socket socket) {
-        super(logger, 16384);
+        super(logger, 256 * 1024 );
         try {
 			mInputStream = socket.getInputStream();
 	        mOutputStream = socket.getOutputStream();
